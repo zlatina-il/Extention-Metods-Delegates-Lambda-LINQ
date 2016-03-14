@@ -1,0 +1,48 @@
+/*
+Using delegates write a class Timer that has can execute certain method at each t seconds.
+*/
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Timer
+{
+    class Program
+    {
+        static class Timer
+        {
+            public static Stopwatch sw = new Stopwatch();
+
+            public static void DoSomething(int t, TimerDelegat doSomething)
+            {
+                if (sw.ElapsedTicks > t)
+                {
+                    doSomething();
+                    sw.Restart();
+                }
+            }
+            public delegate void TimerDelegat();
+        }
+
+        static void Main()
+        {
+            Timer.TimerDelegat timerHandler = DoSomething;
+            Timer.sw.Start();
+
+            while (true)
+            {
+                Timer.DoSomething(1200000, timerHandler);
+            }
+
+        }
+
+        public static void DoSomething()
+        {
+            Console.WriteLine("Blink");
+        }
+        
+    }
+}
