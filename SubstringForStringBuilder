@@ -1,0 +1,43 @@
+/*
+Implement an extension method Substring(int index, int length) for the class StringBuilder that returns new StringBuilder and 
+has the same functionality as Substring in the class String.
+*/
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SubstringForStringBuilder
+{
+    public static class StringBuilderSubString
+    {
+        public static StringBuilder SubStringBuilder(this StringBuilder sb, int startIndex, int length)
+        {
+            string tmp = sb.ToString();
+            tmp = tmp.Substring(startIndex, length);
+            sb.Clear();
+            sb.Append(tmp);
+            return sb;
+        }
+
+        public static StringBuilder SubStringBuilder(this StringBuilder sb, int startIndex)
+        {
+            string tmp = sb.ToString();
+            tmp = tmp.Substring(startIndex);
+            sb.Clear();
+            sb.Append(tmp);
+            return sb;
+        }
+    }
+    class Program
+    {
+        static void Main()
+        {
+            StringBuilder test = new StringBuilder();
+            test.AppendLine("Tuka pravim edin test, za da vidim dali raboti kakto iskame.");
+            Console.WriteLine(test.SubStringBuilder(12, 9).ToString());
+        }
+    }
+}
