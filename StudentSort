@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StudentSort
+{
+    class Program
+    {
+        static void Main()
+        {
+            var studentClass = new[]{
+            new {FirstName = "Dilqna",  LastName = "Nikolova"},
+            new {FirstName = "Zlatina", LastName = "Ilieva"},
+            new {FirstName = "Plamen",  LastName = "Dimitrov"},
+            new {FirstName = "Mariq",  LastName = "Dimova"},
+        };
+
+        var sortedClass =   from student in studentClass
+                            orderby student.FirstName, student.LastName
+                            select student;
+
+        foreach (var student in sortedClass)
+        {
+            Console.WriteLine("{0} {1}", student.FirstName, student.LastName);
+        }
+
+        }
+    }
+}
