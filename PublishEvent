@@ -1,0 +1,66 @@
+/*
+Read in MSDN about the keyword event in C# and how to publish events. Re-implement the above using .NET events and following 
+the best practices.
+*/
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace PublishEvent
+{
+    class Publisher
+    {
+        public delegate void TimerDelegate(Publisher publish, EventArgs e);   
+        public event TimerDelegate AddEvent;                      
+
+        public EventArgs e = null;                                      
+        public int TimeInterval { get; set; }
+        private int counter = 0;
+
+        public void Start()
+        {
+            while (counter < 10)
+            {
+                if (AddEvent != null)
+                {
+                    AddEvent(this, e);
+                }
+                Thread.Sleep(TimeInterval);
+                counter++;
+            } 
+        }
+    }
+    
+    class Subscriber
+    {
+        public void Subscribe(Publisher pub)
+        {
+            pub.AddEvent += new Publisher.TimerDelegate(Message);            
+        }
+
+        public void Message(Publisher publish, EventArgs e)
+        {
+            Console.WriteLine("New message");
+        }
+    }
+    
+    class Program
+    {
+        static void Main()
+        {
+            Publisher publish = new Publisher();
+            publish.TimeInterval = 1000;      
+            Subscriber subscribe = new Subscriber();                              
+            subscribe.Subscribe(publish);
+
+            Console.WriteLine("----******----");
+            publish.Start();
+            Console.WriteLine("----******----");
+            Console.WriteLine();
+        }
+    }
+}
