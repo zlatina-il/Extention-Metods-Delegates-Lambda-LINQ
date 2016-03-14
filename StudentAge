@@ -1,0 +1,33 @@
+/*
+Write a LINQ query that finds the first name and last name of all students with age between 18 and 24.
+*/
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StudentAge
+{
+    class Program
+    {
+        static void Main()
+        {
+            var students = new[] { 
+            new {FirstName = "Zlatina", LastName = "Ilieva", Age=25},
+            new {FirstName = "Plamen",  LastName = "Dimitrov", Age=26},
+            new {FirstName = "Dilqna",  LastName = "Nikolova", Age=24},
+            new {FirstName= "Mariq", LastName= "Dimova", Age= 21},
+            };
+
+            var sortedClass =   from student in students
+                                where (student.Age >= 18 && student.Age <= 24)
+                                select (student.FirstName + " " + student.LastName);
+
+            foreach (var student in sortedClass)
+            {
+                Console.WriteLine(student);
+            }
+        }
+    }
+}
